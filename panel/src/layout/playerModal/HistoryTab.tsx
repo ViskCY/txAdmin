@@ -2,10 +2,10 @@ import { Button } from "@/components/ui/button";
 import { useAdminPerms } from "@/hooks/auth";
 import { cn, tsToLocaleDateTime } from "@/lib/utils";
 import { PlayerHistoryItem } from "@shared/playerApiTypes";
-import { PlayerModalMidMessage } from "./PlayerModal";
 import { useBackendApi } from "@/hooks/fetch";
 import { GenericApiOkResp } from "@shared/genericApiTypes";
 import InlineCode from "@/components/InlineCode";
+import PlayerModalMidMessage from "./PlayerModalMidMessage";
 
 
 type HistoryItemProps = {
@@ -34,10 +34,10 @@ function HistoryItem({ action, permsDisableWarn, permsDisableBan, serverTime, do
     if (action.revokedBy) {
         borderColorClass = '';
         const revocationDate = tsToLocaleDateTime(action.revokedAt ?? 0, 'medium', 'short');
-        footerNote = `Revoked by ${action.revokedBy} in ${revocationDate}.`;
+        footerNote = `Revoked by ${action.revokedBy} on ${revocationDate}.`;
     } else if (typeof action.exp === 'number') {
         const expirationDate = tsToLocaleDateTime(action.exp, 'medium', 'short');
-        footerNote = (action.exp < serverTime) ? `Expired in ${expirationDate}.` : `Expires in ${expirationDate}.`;
+        footerNote = (action.exp < serverTime) ? `Expired on ${expirationDate}.` : `Expires in ${expirationDate}.`;
     }
 
     return (

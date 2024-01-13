@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { usePlayerModalStateValue } from "@/hooks/playerModal";
-import { InfoIcon, ListIcon, HistoryIcon, BanIcon } from "lucide-react";
+import { InfoIcon, ListIcon, HistoryIcon, GavelIcon } from "lucide-react";
 import InfoTab from "./InfoTab";
 import { useEffect, useState } from "react";
 import IdsTab from "./IdsTab";
@@ -17,15 +17,7 @@ import { cn } from "@/lib/utils";
 import { useBackendApi } from "@/hooks/fetch";
 import { PlayerModalResp, PlayerModalSuccess } from "@shared/playerApiTypes";
 import PlayerModalFooter from "./PlayerModalFooter";
-
-
-export function PlayerModalMidMessage({ children }: { children: React.ReactNode }) {
-    return (
-        <div className="flex items-center justify-center min-h-[16.5rem] text-xl p1 text-muted-foreground">
-            {children}
-        </div>
-    )
-}
+import PlayerModalMidMessage from "./PlayerModalMidMessage";
 
 
 const modalTabs = [
@@ -43,7 +35,7 @@ const modalTabs = [
     },
     {
         title: 'Ban',
-        icon: <BanIcon className="mr-2 h-5 w-5 hidden xs:block" />,
+        icon: <GavelIcon className="mr-2 h-5 w-5 hidden xs:block" />,
         className: 'hover:bg-destructive hover:text-destructive-foreground',
     }
 ]

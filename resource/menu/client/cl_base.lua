@@ -142,7 +142,7 @@ end)
 
 --[[ NUI Callbacks ]]
 -- Triggered whenever we require full focus, cursor and keyboard
-RegisterNUICallback('focusInputs', function(shouldFocus, cb)
+RegisterSecureNuiCallback('focusInputs', function(shouldFocus, cb)
   debugPrint('NUI Focus + Keep Input ' .. tostring(shouldFocus))
   -- Will prevent mouse focus on initial menu mount as the useEffect emits there
   if not isMenuVisible then
@@ -154,7 +154,7 @@ RegisterNUICallback('focusInputs', function(shouldFocus, cb)
 end)
 
 
-RegisterNUICallback('reactLoaded', function(_, cb)
+RegisterSecureNuiCallback('reactLoaded', function(_, cb)
   debugPrint("React loaded, requesting ServerCtx.")
 
   CreateThread(function()
@@ -171,17 +171,18 @@ RegisterNUICallback('reactLoaded', function(_, cb)
 end)
 
 -- When the escape key is pressed in menu
-RegisterNUICallback('closeMenu', function(_, cb)
+RegisterSecureNuiCallback('closeMenu', function(_, cb)
   isMenuVisible = false
   debugPrint('Releasing all NUI Focus')
   SetNuiFocus(false)
   SetNuiFocusKeepInput(false)
+  playLibrarySound('enter')
   cb({})
 end)
 
 
 -- Audio play callback
-RegisterNUICallback('playSound', function(sound, cb)
+RegisterSecureNuiCallback('playSound', function(sound, cb)
   playLibrarySound(sound)
   cb({})
 end)
@@ -200,9 +201,9 @@ RegisterNetEvent('txcl:heal', function()
   ClearPedBloodDamage(ped)
   RestorePlayerStamina(PlayerId(), 100.0)
   if IS_REDM then
-    Citizen.InvokeNative(0xC6258F41D86676E0, ped, 0, 100)   -- SetAttributeCoreValue
-    Citizen.InvokeNative(0xC6258F41D86676E0, ped, 1, 100)   -- SetAttributeCoreValue
-    Citizen.InvokeNative(0xC6258F41D86676E0, ped, 2, 100)   -- SetAttributeCoreValue
+    Citizen.InvokeNative(0xC6258F41D86676E0, ped, 0, 100) -- SetAttributeCoreValue
+    Citizen.InvokeNative(0xC6258F41D86676E0, ped, 1, 100) -- SetAttributeCoreValue
+    Citizen.InvokeNative(0xC6258F41D86676E0, ped, 2, 100) -- SetAttributeCoreValue
   end
 end)
 
